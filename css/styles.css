@@ -131,6 +131,7 @@ nav h1 a {
   font-weight: normal;
   line-height: 1;
   margin: 0 20px;
+  
 
 
 }
@@ -462,8 +463,6 @@ nav h1 a {
   width: 100%;
 }
 
-
-
 .inside #footer {
   /*display: block;*/
   bottom: 0;
@@ -479,6 +478,5 @@ nav h1 a {
   height: auto;
 
 }
-
 
 }

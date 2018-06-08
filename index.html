@@ -6,6 +6,21 @@
   <link rel="stylesheet" href="css/styles.css">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>Restaurant Reviews</title>
+  <!-- Register a service worker -->
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', function() {
+      navigator.serviceWorker.register('/sw.js').then(function(registration) {
+        // Registration was successful
+        console.log('ServiceWorker registration successful with scope: ', registration.scope);
+      }, function(err) {
+        // registration failed
+        console.log('ServiceWorker registration failed: ', err);
+      });
+      });
+    }
+  </script>
+
 </head>
 
 <body>
@@ -16,12 +31,12 @@
   </header>
 
   <main id="maincontent">
-    <section id="map-container">
+    <section id="map-container" role="application" aria-label="Map of restaurants.">
       <div id="map"></div>
     </section>
     <section>
-      <div class="filter-options">
-        <h2>Filter Results</h2>
+      <div class=" filter-options">
+        <h2 tabindex="0">Filter Results</h2>
         <select id="neighborhoods-select" name="neighborhoods" onchange="updateRestaurants()">
           <option value="all">All Neighborhoods</option>
         </select>
