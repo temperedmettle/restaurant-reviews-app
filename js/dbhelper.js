@@ -1,15 +1,20 @@
 /**
  * Common database helper functions.
- */
+
+*/
+
+
 class DBHelper {
+
 
   /**
    * Database URL.
    * Change this to restaurants.json file location on your server.
    */
   static get DATABASE_URL() {
-    const port = 8887 // Change this to your server port
-    return `http://localhost:${port}/data/restaurants.json`;
+    //const port = 8887 // Change this to your server port
+    const port = 1337 // Change this to your server port
+    return `http://localhost:${port}/restaurants`;
   }
 
   /**
@@ -20,7 +25,7 @@ class DBHelper {
     xhr.open('GET', DBHelper.DATABASE_URL);
     xhr.onload = () => {
       if (xhr.status === 200) { // Got a success response from server!
-        const json = JSON.parse(xhr.responseText);
+        const json = JSON.parse('{"restaurants":' + xhr.responseText + '}');
         const restaurants = json.restaurants;
         callback(null, restaurants);
       } else { // Oops!. Got an error from server.
@@ -30,6 +35,16 @@ class DBHelper {
     };
     xhr.send();
   }
+
+  static fetchRestaurantsNew(callback) {
+    idb.open('restaurant-reviews', 1).then(function(db) {
+      var tx = db.transaction(['restaurants'], 'readonly');
+      var store = tx.objectStore('restaurants');
+      return store.getAll();
+    }).then(function(items) {
+      callback(null, items);
+    });    
+  }  
 
   /**
    * Fetch a restaurant by its ID.
@@ -159,7 +174,13 @@ class DBHelper {
    * Restaurant image URL.
    */
   static imageUrlForRestaurant(restaurant) {
-    return (`/img/${restaurant.photograph}`);
+    // If restaurant is missing a photograph, use the 'unavailable.jpg' as source URL
+    if (typeof restaurant.photograph == 'undefined') {
+      return (`/img/unavailable.jpg`);
+    } else {
+      return (`/img/${restaurant.photograph}.jpg`);
+    }
+    
   }
 
   /**
@@ -177,18 +198,7 @@ class DBHelper {
     );
     return marker;
   }
-  /* Using anchors 
-  static mapMarkerForRestaurant(restaurant, map) {
-    const marker = new google.maps.Marker({
-      position: restaurant.latlng,
-      title: restaurant.name,
-      url: DBHelper.anchorForRestaurant(restaurant),
-      map: map,
-      animation: google.maps.Animation.DROP}
-    );
-    return marker;
-  }
-  */
+
 
 
 }

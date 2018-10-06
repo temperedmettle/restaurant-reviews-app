@@ -1,14 +1,21 @@
 <!DOCTYPE html>
-<html>
+<html lang='en'>
 
 <head>
   <link rel="stylesheet" src="//normalize-css.googlecode.com/svn/trunk/normalize.css" />
   <link rel="stylesheet" href="css/styles.css">
   <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#000"/>
   <title>Restaurant Reviews</title>
   <!-- Register a service worker -->
   <script>
+    let restaurantsJson = {};
     if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.addEventListener('message', event => {
+        restaurantsJson = event.data.msg;
+        console.log('Loaded restaurants Json...', restaurantsJson);
+      });
       window.addEventListener('load', function() {
       navigator.serviceWorker.register('/sw.js').then(function(registration) {
         // Registration was successful
@@ -37,7 +44,8 @@
     <section>
       <div class=" filter-options">
         <h2 tabindex="0">Filter Results</h2>
-        <select id="neighborhoods-select" name="neighborhoods" onchange="updateRestaurants()">
+        <label>
+        <select id="neighborhoods-select" name="neighborhoods" aria-label="Select neighborhood" onchange="updateRestaurants()">
           <option value="all">All Neighborhoods</option>
         </select>
         <select id="cuisines-select" name="cuisines" onchange="updateRestaurants()">
@@ -47,7 +55,7 @@
       <ul id="restaurants-list"></ul>
     </section>
   </main>
-
+  <script type="application/javascript" charset="utf-8" src="js/idb.js"></script>
   <script type="application/javascript" charset="utf-8" src="js/dbhelper.js"></script>
   <script type="application/javascript" charset="utf-8" src="js/main.js"></script>
   <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCqDXjytyBjr9xLTDwwkpiFignkzKNRJ8o&libraries=places&callback=initMap"></script>
