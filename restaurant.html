@@ -10,6 +10,25 @@
   <meta name="theme-color" content="#000"/>
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>Restaurant Info</title>
+  <script>
+    var swRegistration;
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.addEventListener('message', event => {
+        restaurantsJson = event.data.msg;
+
+      });
+      window.addEventListener('load', function() {
+      navigator.serviceWorker.register('/sw.js').then(function(registration) {
+        // Registration was successful
+        swRegistration = registration;
+        console.log('ServiceWorker registration successful with scope: ', registration.scope);
+      }, function(err) {
+        // registration failed
+        console.log('ServiceWorker registration failed: ', err);
+      });
+      });
+    }
+  </script>
 </head>
 
 <body class="inside">
@@ -40,6 +59,14 @@
     <!-- Beginning restaurant -->
     <section id="restaurant-container">
       <h1 tabindex="0" id="restaurant-name"></h1>
+      <!-- Rectangular switch -->
+      <div style="text-align:center; vertical-align:middle;">
+      Favorite: 
+      <label class="switch" id="favorite-switch">
+        <input type="checkbox" aria-label="Favorite?" id="favorite-checkbox" onchange="toggleFavorite(this.checked)">
+        <span class="slider"></span>
+      </label></div><br>
+      </div>
       <img tabindex="0" alt="Restaurant image" id="restaurant-img">
       <p tabindex="0" id="restaurant-cuisine"></p>
       <p tabindex="0" id="restaurant-address"></p>

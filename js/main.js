@@ -160,7 +160,7 @@ createRestaurantHTML = (restaurant) => {
 
   const name = document.createElement('h1');
   name.setAttribute('tabindex', '0');
-  name.innerHTML = restaurant.name;
+  name.innerHTML = restaurant.name + ((restaurant.is_favorite)?' <span id="heart">&hearts;<span>':'');
   div2.append(name);
 
   const neighborhood = document.createElement('p');

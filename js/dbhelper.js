@@ -36,15 +36,6 @@ class DBHelper {
     xhr.send();
   }
 
-  static fetchRestaurantsNew(callback) {
-    idb.open('restaurant-reviews', 1).then(function(db) {
-      var tx = db.transaction(['restaurants'], 'readonly');
-      var store = tx.objectStore('restaurants');
-      return store.getAll();
-    }).then(function(items) {
-      callback(null, items);
-    });    
-  }  
 
   /**
    * Fetch a restaurant by its ID.

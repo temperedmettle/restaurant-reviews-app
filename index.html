@@ -11,6 +11,7 @@
   <!-- Register a service worker -->
   <script>
     let restaurantsJson = {};
+    var swRegistration;
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker.addEventListener('message', event => {
         restaurantsJson = event.data.msg;
@@ -19,7 +20,9 @@
       window.addEventListener('load', function() {
       navigator.serviceWorker.register('/sw.js').then(function(registration) {
         // Registration was successful
+        swRegistration = registration;
         console.log('ServiceWorker registration successful with scope: ', registration.scope);
+        Notification.requestPermission();
       }, function(err) {
         // registration failed
         console.log('ServiceWorker registration failed: ', err);

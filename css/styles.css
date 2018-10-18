@@ -212,6 +212,11 @@ nav h1 a {
   margin: 0;
   position: absolute; }
 
+#heart {
+  color: #f00;
+  font-size:20pt;
+}  
+
 /* ====================== Restaurant Details ====================== */
 .inside #maincontent {
   display: grid;
@@ -258,6 +263,63 @@ nav h1 a {
   line-height: 1.1;
   text-align: center; }
 
+/* The switch - the box around the slider */
+.switch {
+  text-align: center;
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
+
+/* Hide default HTML checkbox */
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* The slider */
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .slider {
+  background-color: #2196F3;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+
 #restaurant-img {
   width: 100vw; }
 
@@ -292,12 +354,71 @@ nav h1 a {
 #reviews-container h2 {
   color: #f58500;
   color: #8F4300;
+  color: #fff;
+  background-color: #155c8e;
   font-size: 1.5em;
   font-weight: 300;
   letter-spacing: -1px;
   /* padding-bottom: 1pt; */
   padding: 0 10px 10px 1pt;
   text-align: center; }
+
+#review-instruction {
+  text-align: center;
+}
+
+#myReview {
+  background-color: #ccc;*/
+  display:inline-block;
+  text-align:center;
+  margin-left:0;
+
+  max-width: 640px;
+  width: calc(100vw);
+
+}
+
+#myReview label {
+  /*background-color: #aaa;*/
+  display:block;
+  max-width:620px;
+  width: calc(100vw - 10px * 2);
+  text-align: center;
+  vertical-align:bottom;
+}
+
+#myReview input {
+  height:34px;
+  font-size:1em;
+  /*max-width: 200px; */
+  max-width: 620px;
+  width:calc(100vw - 10px * 2);
+
+}  
+
+#myReview textarea {
+  display: inline-block;
+  height:68px;
+  max-width: 620px;
+  width:calc(100vw - 10px * 2);  
+  font-size:1em;
+  resize:none;
+}  
+#myReview input[type=button]{
+  background-color: #155c8e;
+  color: white;
+  width:calc(100vw - 10px * 2);
+  max-width: 200px;
+  display:inline-block;
+  /*margin-left: calc(50vw - 100px);*/
+}
+#myReview input[type=number]{
+  width:100px;
+
+  /*margin-left: calc(50vw - 50px);  */
+
+}
+
 
 #reviews-list {
   margin: 0;
@@ -326,6 +447,8 @@ nav h1 a {
   padding: 0 10px; }
 
 @media screen and (min-width: 415px) {
+
+
   #map {
     min-height: 100px;
     height: calc(100vh - 80px - 68px - (5px * 2));
@@ -393,6 +516,8 @@ nav h1 a {
     grid-template-columns: auto auto;
     /* max-height : calc(100vh - 80px); */
     width: 50vw; }
+
+
   #restaurants-list li {
     width: calc(100vw / 3);
     display: block; }
@@ -438,4 +563,19 @@ nav h1 a {
     width: 100vw; }
   .inside #maincontent ul {
     overflow: visible;
-    height: auto; } }
+    height: auto; } 
+}
+@media screen and (min-width: 642px) {
+  #myReview {
+    margin-left: calc(50vw - 640px / 2);
+  }
+  #myReview input[type=number]{
+    width:100px;
+ 
+    margin-left: 0px;
+  }
+}  
+
+
+
+
